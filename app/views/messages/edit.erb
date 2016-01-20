@@ -1,0 +1,9 @@
+<h1>Edit new message information</h1>
+<form action="/messages/<%= @message.id %>" method="post">
+<input type="hidden" name="_method" value="put">
+<input type="text" name="title" value="<%= @message.title %>">
+<input type="text" name="tag" placeholder="enter a new tag">
+<textarea name="body" value="<%= @message.body %>"></textarea>
+<input type="submit" value="Update">
+</form>
+<a href="/messages">Home</a>

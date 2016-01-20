@@ -1,0 +1,32 @@
+
+<div class="container">
+  <div class="message-list">
+  <% if logged_in %>
+    <h1><a href="/users/<%= current_user.id %>">Send a Christmas GIF-t</a></h1>
+  <% else %>
+    <h1><a href="/users/new">Sign up to send a GIF-t</a></h1>
+  <% end %>
+
+    <ul>
+    <% @messages.each do |message| %>
+        <% unless message.to.nil? %>
+        <div class="full-message">
+            <li><a href="/messages/<%= message.id %>"><%= message.body %></a></li>
+            <li class="message">To:  <a href="/users/<%= message.to.id %>"><%= message.to.username %></a></li>
+            <li><p>From: <a href="/users/<%= message.from.id %>"><%= message.from.username %></a></p></li>
+            <li><p>Created <%= ((Time.now - message.created_at) / 3600).to_i %> hours ago</p></li>
+            <% if allow_edit_message(message) %> <!-- this will run a helper method. see helpers -->
+            <li>
+              <a href="/messages/<%= message.id %>/edit">edit</a>
+                <form class="message-delete button" action="/messages/<%= message.id %>" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="delete message" class="message-delete">
+              </form>
+            </li>
+            <% end %>
+        </div>
+          <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

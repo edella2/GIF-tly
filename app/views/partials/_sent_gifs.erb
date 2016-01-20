@@ -1,0 +1,14 @@
+<!-- sent gifs -->
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-9 col-centered" id="sent-gifs">
+    <h1>You have sent these gifs: </h1>
+    <ul>
+    <% @sent_messages.each do |message| %>
+      <% unless message.to.nil? %>
+      <li><a href="/messages/<%= message.id %>">TO: <%= message.to.username %></a></li>
+      <% end %>
+    <% end %>
+    </ul>
+  </div>
+</div>

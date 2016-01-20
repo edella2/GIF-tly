@@ -1,0 +1,12 @@
+<!-- recieved gifs -->
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-9 col-centered" id="recieved-gifs">
+    <h1>You have recieved these gifs: </h1>
+    <ul>
+    <% @recieved_messages.each do |message| %>
+      <li><a href="/messages/<%= message.id %>">FROM: <%= message.from.username %></a></li>
+    <% end %>
+    </ul>
+  </div>
+</div>
