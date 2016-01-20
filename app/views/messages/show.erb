@@ -1,0 +1,15 @@
+
+<p><a href="<%= @message.url %>"><%= @message.body %></a></p>
+<p> From: <%= @message.from.username %></p>
+<p> To: <%= @message.to.username %></p>
+<img src="<%= @message.img_url %>" alt="">
+<% if allow_edit_message(@message) %>
+  <a href="/messages/<%= @message.id %>/edit">edit</a>
+    <form class="message-delete button" action="/messages/<%= @message.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="delete message" class="message-delete">
+  </form>
+<% end %>
+
+
+

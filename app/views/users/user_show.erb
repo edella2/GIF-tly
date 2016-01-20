@@ -1,0 +1,97 @@
+
+<div class="row">
+  <div class="col-md-4 col-xs-4"><img class="oscar" src="/img/Money.jpg" alt=""></div>
+  <div class="col-md-8 col-xs-8">
+  <h2 id="<%= @user.id %>">Name: <%= @user.username %></h2>
+  <% if allow_edit_user(@user) %>
+    <a href="/users/<%= @user.id %>/edit">edit</a>
+      <form class="user-delete button" action="/users/<%= @user.id %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="delete user" class="user-delete">
+    </form>
+  <% end %>
+  </div>
+</div>
+
+
+
+
+<!-- Options -->
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-9 col-centered">
+  <h1>Options: </h1>
+  <section id="tabs list-inline">
+  <div class="tab active"><a class="send-new-gif" href="show-random-gif">Send New Gif</a></div>
+  <div class="tab"><a class="recieved-gifs" href="recieved">Recieved Gifs</a></div>
+  <div class="tab"><a class="sent-gifs" href="sent-gif">Sent Gifs</a></div>
+
+</section>
+  </div>
+</div>
+
+<!-- Show me a gif -->
+<section class="sheet" id="show-random-gif">
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-10 col-centered">
+  <ul id="gifs-list">
+  <h1 class="left"><a id="random-gif" href="">Show me another</a></h1>
+  <% if @user.messages.last %>
+  <div id="current-gif-list">
+   <h1>Do you want to send this gif?: </h1>
+  </div>
+    <img id="<%= @user.messages.last.id %>" class="current-gif" src="<%= @user.messages.last.img_url %>" alt="">
+    <p><%= @user.messages.last.url %></p>
+    <h1 class="left">The perfect gif! Text it now!</h1>
+    <form action="/messages/send" method="post">
+      <label for="user_to">Who do you want to send it to?</label>
+      <input type="text" name="user_to">
+      <input type="submit" value="Send to user">
+    </form>
+
+    <h1>Message a unregistered user</h1>
+    <form action="/messages/send" method="post">
+      <label for="phone_number">Enter a valid phone number</label>
+      <input type="text" name="phone_number">
+      <input type="submit" value="Send to user">
+    </form>
+
+  <% end %>
+  </ul>
+  </div>
+</div>
+</section>
+
+
+<!-- recieved gifs -->
+<section class="sheet hidden" id="recieved">
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-9 col-centered" id="recieved-gifs">
+    <h1>You have recieved these gifs: </h1>
+    <ul>
+    <% @recieved_messages.each do |message| %>
+      <li><a href="/messages/<%= message.id %>">FROM: <%= message.from.username %></a></li>
+    <% end %>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- sent gifs -->
+<section class="sheet hidden" id="sent-gif">
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-9 col-centered" id="sent-gifs">
+    <h1>You have sent these gifs: </h1>
+    <ul>
+    <% @sent_messages.each do |message| %>
+      <% unless message.to.nil? %>
+      <li><a href="/messages/<%= message.id %>">TO: <%= message.to.username %></a></li>
+      <% end %>
+    <% end %>
+    </ul>
+  </div>
+</div>
+</section>

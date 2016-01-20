@@ -1,0 +1,30 @@
+<!-- Show me a gif -->
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-10 col-centered">
+  <ul id="gifs-list">
+  <h1 class="left"><a id="random-gif" href="">Show me another</a></h1>
+  <% if @user.messages.last %>
+  <div id="current-gif-list">
+   <h1>Do you want to send this gif?: </h1>
+  </div>
+    <img id="<%= @user.messages.last.id %>" class="current-gif" src="<%= @user.messages.last.img_url %>" alt="">
+    <p><%= @user.messages.last.url %></p>
+    <h1 class="left">The perfect gif! Text it now!</h1>
+    <form action="/messages/send" method="post">
+      <label for="user_to">Who do you want to send it to?</label>
+      <input type="text" name="user_to">
+      <input type="submit" value="Send to user">
+    </form>
+
+    <h1>Message a unregistered user</h1>
+    <form action="/messages/send" method="post">
+      <label for="phone_number">Enter a valid phone number</label>
+      <input type="text" name="phone_number">
+      <input type="submit" value="Send to user">
+    </form>
+
+  <% end %>
+  </ul>
+  </div>
+</div>
